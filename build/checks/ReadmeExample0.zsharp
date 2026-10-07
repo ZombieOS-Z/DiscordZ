@@ -1,0 +1,20 @@
+zsharp = type.script
+
+noticed room Bot[] (
+ import c:discordz.C.Main():
+
+ noticed discord_command_hybrid Ping[] (
+  Discord.Prefix("?", "!", "*"):
+  Discord.Cooldown(5s):
+  Discord.Print("Pong!").replyToExecutor:
+ )
+
+ noticed brain Start[] (
+  Discord.Bot.Login(File.read(".env")):
+  Discord.Bot.Status("online", "playing", "Made with Z#"):
+ )
+
+ noticed brain Shutdown[] (
+  Discord.Bot.Shutdown:
+ )
+)

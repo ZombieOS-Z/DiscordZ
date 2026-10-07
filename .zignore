@@ -1,0 +1,17 @@
+# Runtime package contents only; these files remain in the source repository.
+.env
+.env.*
+/Z# Examples/
+/build/
+/Discord/
+/Build.ps1
+/README.md
+/BOT_COMMANDS.md
+*.obj
+*.lib
+*.exp
+*.pdb
+__pycache__/
+*.pyc
+*.pyo
+# Keep C/Main.zc.dll, C/discord_partner_sdk.dll, Python/vendor and license notices.

@@ -1,0 +1,18 @@
+zsharp = type.script
+noticed room MessageSmoke[] (
+ import c:discordz.C.Main():
+ noticed discord_event_message MessageReceived[text userMessage, text channelID, text messageID] (
+  if[Regex.test(userMessage, "\\bBLOCKED_WORD\\b", "i")] (
+   Discord.Bot.DeleteUserMessage(channelID, messageID):
+   Print("MESSAGE MODERATION DELETED TEST MESSAGE"):
+  ) else (
+   Print("MESSAGE MODERATION ALLOWED TEST MESSAGE"):
+  )
+ )
+ noticed brain Start[] (
+  Function.call(c:C.Main:discord_event_offline_messages_start []):
+ )
+ noticed brain Shutdown[] (
+  Print("MESSAGE MODERATION TEST FINISHED"):
+ )
+)

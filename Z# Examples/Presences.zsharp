@@ -1,0 +1,24 @@
+zsharp = type.script
+
+noticed room Presences[] (
+    import c:discordz.C.Main():
+    noticed brain Shutdown[] (
+        Discord.Shutdown("main"):
+    )
+    noticed brain Start[DR] (
+        Discord.Init("1557068582330962035", "main"):
+
+        if[Discord.client] (
+            Print("At least one client initialized"):
+        )
+
+        if[Discord.client("main")] (
+            Print("Main client initialized"):
+            Discord.setPresence("12", "34", "main"):
+            Print("Presence set for main client"):
+            wait(5s):
+            Discord.clearPresence("main"):
+            Print("Presence cleared for main client"):
+        )
+    )
+)

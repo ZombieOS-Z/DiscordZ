@@ -1,0 +1,15 @@
+zsharp = type.script
+
+noticed room BotSmoke[] (
+ import c:discordz.C.Main():
+ noticed brain Start[] (
+  if[Function.call(c:C.Main:discord_bot_self_test [])] (
+   Print("DiscordZ bundled Python self-test passed"):
+  ) else (
+   Print("DiscordZ bundled Python self-test failed"):
+  )
+ )
+ noticed brain Shutdown[] (
+  Discord.Bot.Shutdown:
+ )
+)

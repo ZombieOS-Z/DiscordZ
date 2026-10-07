@@ -1,0 +1,116 @@
+zsharp = type.script
+
+noticed room Bot[] (
+    import c:discordz.C.Main():
+
+    Webhook ExampleWebhook (
+        content: "Hello from a Z# webhook!":
+        tts: dead:
+        embeds (
+            ExampleEmbed (
+                title: "DiscordZ webhook example":
+                description: "This embed was defined directly in a Z# room.":
+                color: #3366FF:
+                // url: "https://your-website.com":
+                // timestamp: "2026-10-07T12:00:00Z":
+                author (
+                    name: "DiscordZ":
+                    // url: "https://your-website.com":
+                    // iconURL: "https://your-website.com/author.png":
+                )
+                // thumbnail: "https://your-website.com/thumbnail.png":
+                // image: "https://your-website.com/image.png":
+                fields (
+                    Language ( name: "Language": value: "Z#": inline: alive: )
+                    Features (
+                        name: "Features":
+                        value: "Commands, replies, statuses and webhooks":
+                        inline: dead:
+                    )
+                )
+                footer (
+                    text: "Made with DiscordZ":
+                    // iconURL: "https://your-website.com/footer.png":
+                )
+            )
+        )
+        
+        allowedMentions ( everyone: dead: users: []: roles: []: )
+    ):
+
+    noticed discord_command_hybrid Ping[] (
+        Discord.Prefix("?", "!", "*"):
+        Discord.Cooldown(5s):
+        Discord.Print("Pong! This reply came from Z#.").replyToExecutor:
+        Print("The ping command was used"):
+    )
+
+    noticed discord_command_hybrid Hello[text Name] (
+        text Reply = "Hello, " + Name + "!":
+        Discord.Print(Reply):
+    )
+
+    noticed discord_command_slash Add[number First, number Second] (
+        number Total = First + Second:
+        Discord.Print("The total is " + Total):
+    )
+
+    noticed discord_command_msg Echo[text Message] (
+        Discord.Prefix("?", "!"):
+        Discord.Cooldown(5ms):
+        Discord.Print(Message).replyToExecutor:
+    )
+
+    noticed discord_command_hybrid Check[status Enabled] (
+        if[Enabled == alive] (
+            Discord.Print("Enabled!"):
+        ) else (
+            Discord.Print("Disabled!"):
+        )
+    )
+
+    noticed discord_command_slash Activity[text Details] (
+        Discord.Bot.Status("online", "playing", Details):
+        Discord.Print("Updated the bot's activity to: " + Details):
+    )
+
+    noticed discord_command_slash Webhook[] (
+        Discord.Print(Discord.Webhook("ExampleWebhook")):
+        Discord.Print("Webhook sent!"):
+    )
+
+    noticed discord_command_slash WebhookText[text Message] (
+        Discord.Print(Message, Discord.Webhook("ExampleWebhook")):
+        Discord.Print("Webhook sent with your message!"):
+    )
+    noticed brain Start[] (
+        Discord.Bot.Login(File.read(".env")):
+        Print("Bot connection started. Waiting for DISCORDZ_READY..."):
+
+        Discord.Bot.Status("online", "playing", "Playing with DiscordZ"):
+        Print("Try /ping, /hello, /add, /check, /activity, !command or !echo"):
+    )
+
+    noticed discord_command_msg Command[] (
+        Discord.Print("Your command works!"):
+    )
+
+    noticed discord_command_slash DeleteMessage[text ChannelID, text MessageID] (
+        Discord.RequirePermission("manage_messages"):
+        Discord.RequireBotPermission("manage_messages"):
+        Discord.Cooldown(5s):
+        Discord.Bot.DeleteUserMessage(ChannelID, MessageID):
+    )
+
+    noticed brain Shutdown[] (
+        Discord.Bot.Shutdown:
+        Print("DiscordZ bot stopped"):
+    )
+
+    noticed discord_event_message MessageReceived[text userMessage, text channelID, text messageID] (
+        if[Regex.test(userMessage, "\\bBLOCKED_WORD\\b", "i")] (
+            Discord.Bot.DeleteUserMessage(channelID, messageID):
+        ) else (
+        )
+    )
+)

@@ -1,0 +1,3 @@
+project.zsettings Linguist-Language=JavaScript
+*.zsharp Linguist-Language=JavaScript
+.zignore Linguist-Language=JavaScript

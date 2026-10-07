@@ -1,0 +1,47 @@
+zsharp = type.script
+
+noticed room CommandsSmoke[] (
+ import c:discordz.C.Main():
+ Webhook Offline (
+  content: "offline webhook":
+  embeds (
+   TestEmbed (
+    title: "Offline embed":
+    color: #3366FF:
+    fields (
+     One ( name: "Test": value: "Offline": inline: alive: )
+    )
+   )
+  )
+  allowedMentions ( everyone: dead: users: []: roles: []: )
+ ):
+ noticed discord_command_hybrid HybridTest[text Message, number Count, status Ready] (
+  Discord.Prefix("?", "!", "*"):
+  Discord.Cooldown(5s):
+  Discord.RequirePermission("manage_messages"):
+  Discord.RequireBotPermission("manage_messages"):
+  if[Ready == alive and Count == 10] (
+   Discord.Print(Message).replyToExecutor:
+   Discord.Print(Discord.Webhook("Offline")):
+  ) else (
+   Print("BAD HYBRID ARGUMENTS"):
+  )
+ )
+ noticed discord_command_slash SlashTest[text Message] (
+  Discord.Print(Message):
+  Discord.Print(Discord.Webhook("Offline")):
+ )
+ noticed discord_command_msg MessageTest[text Message] (
+  Discord.Prefix("??", "*"):
+  Discord.Cooldown(5ms):
+  Discord.Print(Message):
+  Discord.Print("offline webhook", Discord.Webhook("Offline")).replyToExecutor:
+ )
+ noticed brain Start[] (
+  Function.call(c:C.Main:discord_event_offline_start []):
+  Print("Offline command service started; Start has returned"):
+ )
+ noticed brain Shutdown[] (
+  Print("Offline commands and webhooks finished"):
+ )
+)

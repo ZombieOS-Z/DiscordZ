@@ -1,0 +1,8 @@
+zsharp = type.script
+
+noticed room InlineBot[] (
+ import c:discordz.C.Main():
+ noticed brain Example[] (
+  Discord.Bot.Login(File.read(".env")):
+ )
+)

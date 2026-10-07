@@ -1,0 +1,15 @@
+zsharp = type.script
+
+noticed room Presence[] (
+ import c:discordz.C.Main():
+
+ noticed brain Start[] (
+  Discord.Init("YOUR_APPLICATION_ID", "main"):
+  Discord.setPresence("Exploring the world", "Chapter 1", "main"):
+  wait(30s):
+ )
+
+ noticed brain Shutdown[] (
+  Discord.Shutdown("main"):
+ )
+)
